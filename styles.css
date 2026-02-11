@@ -26,7 +26,7 @@ body {
       var(--bg-wood-dark) 70px,
       var(--bg-wood-dark) 76px
     );
-  cursor: url("paw-cursor.svg") 12 6, auto;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg fill='%2352321f'%3E%3Ccircle cx='16' cy='19' r='7'/%3E%3Ccircle cx='9' cy='11' r='4'/%3E%3Ccircle cx='14' cy='8' r='4'/%3E%3Ccircle cx='19' cy='8' r='4'/%3E%3Ccircle cx='24' cy='11' r='4'/%3E%3C/g%3E%3C/svg%3E") 3 3, auto;
 }
 
 .desk-overlay {
@@ -113,12 +113,6 @@ button:hover {
   transform: translateY(-1px);
 }
 
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-  transform: none;
-}
-
 .btn-primary {
   background: var(--accent);
   border-color: var(--accent-dark);
@@ -135,19 +129,6 @@ button:disabled {
 #shareLink {
   flex: 1;
   min-width: 260px;
-}
-
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.8rem;
-}
-
-.tool-btn.active {
-  background: #f2d5df;
-  border-color: #885365;
-  box-shadow: inset 0 0 0 2px #88536533;
 }
 
 .workspace {

@@ -9,9 +9,6 @@ const imageInput = document.getElementById('imageInput');
 const colorSteps = document.getElementById('colorSteps');
 const colorStepsValue = document.getElementById('colorStepsValue');
 const shareLink = document.getElementById('shareLink');
-const undoBtn = document.getElementById('undoBtn');
-const redoBtn = document.getElementById('redoBtn');
-const toolButtons = document.querySelectorAll('.tool-btn');
 
 const paletteContainer = document.getElementById('palette');
 
@@ -25,46 +22,9 @@ let gridW = Number(gridWidthInput.value);
 let gridH = Number(gridHeightInput.value);
 let beadSizeMm = Number(beadSizeInput.value);
 let activeColor = hamaPalette[0];
-let activeTool = 'pencil';
 let showGrid = true;
-let pointerDown = false;
+let drawing = false;
 let beads = [];
-let hoverCell = null;
-let dragStartCell = null;
-let previewCells = [];
-
-const historyPast = [];
-const historyFuture = [];
-const HISTORY_LIMIT = 80;
-
-function cloneBeads(data) {
-  return data.map((row) => [...row]);
-}
-
-function pushHistorySnapshot() {
-  historyPast.push(cloneBeads(beads));
-  if (historyPast.length > HISTORY_LIMIT) {
-    historyPast.shift();
-  }
-  historyFuture.length = 0;
-  updateHistoryButtons();
-}
-
-function restoreSnapshot(snapshot) {
-  beads = cloneBeads(snapshot);
-  drawBoard();
-}
-
-function updateHistoryButtons() {
-  undoBtn.disabled = historyPast.length === 0;
-  redoBtn.disabled = historyFuture.length === 0;
-}
-
-function resetHistory() {
-  historyPast.length = 0;
-  historyFuture.length = 0;
-  updateHistoryButtons();
-}
 
 function initBeads(fill = null) {
   beads = Array.from({ length: gridH }, () => Array.from({ length: gridW }, () => fill));
@@ -83,7 +43,6 @@ function createPalette() {
       activeColor = color;
       document.querySelectorAll('.palette-btn').forEach((el) => el.classList.remove('active'));
       button.classList.add('active');
-      drawBoard();
     });
     paletteContainer.appendChild(button);
   });
@@ -137,10 +96,8 @@ function drawGridLines(size) {
   }
 }
 
-function drawBead(centerX, centerY, radius, color, opacity = 1) {
+function drawBead(centerX, centerY, radius, color) {
   const ringThickness = radius * 0.34;
-  ctx.save();
-  ctx.globalAlpha = opacity;
 
   ctx.fillStyle = color;
   ctx.beginPath();
@@ -177,37 +134,6 @@ function drawBead(centerX, centerY, radius, color, opacity = 1) {
   ctx.beginPath();
   ctx.arc(centerX, centerY, radius * 0.2, 0, Math.PI * 2);
   ctx.fill();
-
-  ctx.restore();
-}
-
-function drawPreview(size) {
-  const toDraw = new Map();
-
-  if (!pointerDown && hoverCell && (activeTool === 'pencil' || activeTool === 'eraser')) {
-    toDraw.set(`${hoverCell.x},${hoverCell.y}`, {
-      x: hoverCell.x,
-      y: hoverCell.y,
-      color: activeTool === 'eraser' ? '#ffffff' : activeColor,
-      opacity: activeTool === 'eraser' ? 0.25 : 0.45
-    });
-  }
-
-  previewCells.forEach((cell) => {
-    toDraw.set(`${cell.x},${cell.y}`, {
-      ...cell,
-      opacity: cell.opacity ?? 0.45,
-      color: cell.color ?? activeColor
-    });
-  });
-
-  toDraw.forEach((cell) => {
-    if (!isValidCell(cell.x, cell.y)) return;
-    const centerX = cell.x * size + size / 2;
-    const centerY = cell.y * size + size / 2;
-    const radius = size * 0.45;
-    drawBead(centerX, centerY, radius, cell.color, cell.opacity);
-  });
 }
 
 function drawBoard() {
@@ -218,6 +144,7 @@ function drawBoard() {
   beads.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (!cell) return;
+
       const centerX = x * size + size / 2;
       const centerY = y * size + size / 2;
       const radius = size * 0.45;
@@ -225,7 +152,6 @@ function drawBoard() {
     });
   });
 
-  drawPreview(size);
   drawGridLines(size);
 }
 
@@ -240,129 +166,11 @@ function pointerToCell(evt) {
   };
 }
 
-function isValidCell(x, y) {
-  return x >= 0 && y >= 0 && x < gridW && y < gridH;
-}
-
-function setCell(x, y, color) {
-  if (!isValidCell(x, y)) return false;
-  if (beads[y][x] === color) return false;
-  beads[y][x] = color;
-  return true;
-}
-
-function paintSingleCell(cell) {
-  if (!isValidCell(cell.x, cell.y)) return false;
-  if (activeTool === 'eraser') return setCell(cell.x, cell.y, null);
-  return setCell(cell.x, cell.y, activeColor);
-}
-
-function floodFill(startX, startY, targetColor) {
-  if (!isValidCell(startX, startY)) return false;
-  const sourceColor = beads[startY][startX];
-  if (sourceColor === targetColor) return false;
-
-  const queue = [[startX, startY]];
-  const visited = new Set();
-  let changed = false;
-
-  while (queue.length) {
-    const [x, y] = queue.shift();
-    const key = `${x},${y}`;
-    if (visited.has(key)) continue;
-    visited.add(key);
-    if (!isValidCell(x, y)) continue;
-    if (beads[y][x] !== sourceColor) continue;
-
-    beads[y][x] = targetColor;
-    changed = true;
-    queue.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
-  }
-
-  return changed;
-}
-
-function getLineCells(a, b) {
-  const cells = [];
-  let x0 = a.x;
-  let y0 = a.y;
-  const x1 = b.x;
-  const y1 = b.y;
-  const dx = Math.abs(x1 - x0);
-  const dy = -Math.abs(y1 - y0);
-  const sx = x0 < x1 ? 1 : -1;
-  const sy = y0 < y1 ? 1 : -1;
-  let err = dx + dy;
-
-  while (true) {
-    cells.push({ x: x0, y: y0 });
-    if (x0 === x1 && y0 === y1) break;
-    const e2 = 2 * err;
-    if (e2 >= dy) {
-      err += dy;
-      x0 += sx;
-    }
-    if (e2 <= dx) {
-      err += dx;
-      y0 += sy;
-    }
-  }
-
-  return cells;
-}
-
-function getRectCells(a, b) {
-  const minX = Math.min(a.x, b.x);
-  const maxX = Math.max(a.x, b.x);
-  const minY = Math.min(a.y, b.y);
-  const maxY = Math.max(a.y, b.y);
-  const cells = [];
-
-  for (let x = minX; x <= maxX; x++) {
-    cells.push({ x, y: minY }, { x, y: maxY });
-  }
-  for (let y = minY; y <= maxY; y++) {
-    cells.push({ x: minX, y }, { x: maxX, y });
-  }
-
-  return cells;
-}
-
-function getCircleCells(a, b) {
-  const cx = Math.floor((a.x + b.x) / 2);
-  const cy = Math.floor((a.y + b.y) / 2);
-  const rx = Math.max(1, Math.floor(Math.abs(b.x - a.x) / 2));
-  const ry = Math.max(1, Math.floor(Math.abs(b.y - a.y) / 2));
-  const cells = [];
-
-  for (let y = cy - ry - 1; y <= cy + ry + 1; y++) {
-    for (let x = cx - rx - 1; x <= cx + rx + 1; x++) {
-      const nx = (x - cx) / rx;
-      const ny = (y - cy) / ry;
-      const d = (nx * nx) + (ny * ny);
-      if (d > 0.7 && d < 1.3) {
-        cells.push({ x, y });
-      }
-    }
-  }
-
-  return cells;
-}
-
-function getShapeCells(start, end) {
-  if (!start || !end) return [];
-  if (activeTool === 'line') return getLineCells(start, end);
-  if (activeTool === 'rect') return getRectCells(start, end);
-  if (activeTool === 'circle') return getCircleCells(start, end);
-  return [];
-}
-
-function applyCells(cells, color) {
-  let changed = false;
-  cells.forEach(({ x, y }) => {
-    if (setCell(x, y, color)) changed = true;
-  });
-  return changed;
+function paintCell(evt) {
+  const { x, y } = pointerToCell(evt);
+  if (x < 0 || y < 0 || x >= gridW || y >= gridH) return;
+  beads[y][x] = activeColor;
+  drawBoard();
 }
 
 function nearestPaletteColor(r, g, b) {
@@ -403,8 +211,6 @@ function convertImageToPattern(file) {
   };
 
   image.onload = () => {
-    pushHistorySnapshot();
-
     const temp = document.createElement('canvas');
     temp.width = gridW;
     temp.height = gridH;
@@ -431,7 +237,6 @@ function convertImageToPattern(file) {
     }
 
     drawBoard();
-    updateHistoryButtons();
   };
 
   reader.readAsDataURL(file);
@@ -475,7 +280,6 @@ function applyState(state) {
 
   resizeCanvas();
   beads = state.data;
-  resetHistory();
   drawBoard();
 }
 
@@ -487,134 +291,25 @@ function rebuildGrid() {
 
   initBeads(null);
   resizeCanvas();
-  resetHistory();
   drawBoard();
 }
 
-function clearPreview() {
-  previewCells = [];
-}
+canvas.addEventListener('pointerdown', (evt) => {
+  drawing = true;
+  paintCell(evt);
+});
 
-function applyCurrentShape(endCell) {
-  const cells = getShapeCells(dragStartCell, endCell);
-  return applyCells(cells, activeColor);
-}
+canvas.addEventListener('pointermove', (evt) => {
+  if (!drawing) return;
+  paintCell(evt);
+});
 
-function onPointerDown(evt) {
-  pointerDown = true;
-  const cell = pointerToCell(evt);
-  hoverCell = isValidCell(cell.x, cell.y) ? cell : null;
-
-  if (!hoverCell) return;
-
-  if (activeTool === 'bucket') {
-    pushHistorySnapshot();
-    const color = activeColor;
-    if (!floodFill(hoverCell.x, hoverCell.y, color)) {
-      historyPast.pop();
-      updateHistoryButtons();
-    }
-    drawBoard();
-    pointerDown = false;
-    return;
-  }
-
-  if (activeTool === 'pencil' || activeTool === 'eraser') {
-    pushHistorySnapshot();
-    if (!paintSingleCell(hoverCell)) {
-      historyPast.pop();
-      updateHistoryButtons();
-    }
-    drawBoard();
-    return;
-  }
-
-  dragStartCell = hoverCell;
-  previewCells = getShapeCells(dragStartCell, hoverCell).map((c) => ({ ...c, color: activeColor, opacity: 0.45 }));
-  drawBoard();
-}
-
-function onPointerMove(evt) {
-  const cell = pointerToCell(evt);
-  hoverCell = isValidCell(cell.x, cell.y) ? cell : null;
-
-  if (!pointerDown || !hoverCell) {
-    drawBoard();
-    return;
-  }
-
-  if (activeTool === 'pencil' || activeTool === 'eraser') {
-    paintSingleCell(hoverCell);
-    drawBoard();
-    return;
-  }
-
-  if (activeTool === 'line' || activeTool === 'rect' || activeTool === 'circle') {
-    previewCells = getShapeCells(dragStartCell, hoverCell).map((c) => ({ ...c, color: activeColor, opacity: 0.45 }));
-    drawBoard();
-  }
-}
-
-function onPointerUp(evt) {
-  if (!pointerDown) return;
-  pointerDown = false;
-
-  const cell = pointerToCell(evt);
-  const endCell = isValidCell(cell.x, cell.y) ? cell : hoverCell;
-
-  if (endCell && (activeTool === 'line' || activeTool === 'rect' || activeTool === 'circle')) {
-    pushHistorySnapshot();
-    if (!applyCurrentShape(endCell)) {
-      historyPast.pop();
-      updateHistoryButtons();
-    }
-  }
-
-  dragStartCell = null;
-  clearPreview();
-  drawBoard();
-}
-
-function handlePointerLeave() {
-  hoverCell = null;
-  if (!pointerDown) clearPreview();
-  drawBoard();
-}
-
-function undo() {
-  if (historyPast.length === 0) return;
-  historyFuture.push(cloneBeads(beads));
-  const snapshot = historyPast.pop();
-  restoreSnapshot(snapshot);
-  updateHistoryButtons();
-}
-
-function redo() {
-  if (historyFuture.length === 0) return;
-  historyPast.push(cloneBeads(beads));
-  const snapshot = historyFuture.pop();
-  restoreSnapshot(snapshot);
-  updateHistoryButtons();
-}
-
-function setActiveTool(tool) {
-  activeTool = tool;
-  toolButtons.forEach((btn) => {
-    btn.classList.toggle('active', btn.dataset.tool === tool);
-  });
-  clearPreview();
-  drawBoard();
-}
-
-canvas.addEventListener('pointerdown', onPointerDown);
-canvas.addEventListener('pointermove', onPointerMove);
-canvas.addEventListener('pointerup', onPointerUp);
-canvas.addEventListener('pointerleave', handlePointerLeave);
-window.addEventListener('pointerup', onPointerUp);
+window.addEventListener('pointerup', () => {
+  drawing = false;
+});
 
 document.getElementById('applyGridBtn').addEventListener('click', rebuildGrid);
 document.getElementById('clearBtn').addEventListener('click', () => {
-  pushHistorySnapshot();
   initBeads(null);
   drawBoard();
 });
@@ -630,15 +325,6 @@ document.getElementById('shareBtn').addEventListener('click', () => {
     /* clipboard may be unavailable */
   });
 });
-
-toolButtons.forEach((btn) => {
-  btn.addEventListener('click', () => {
-    setActiveTool(btn.dataset.tool);
-  });
-});
-
-undoBtn.addEventListener('click', undo);
-redoBtn.addEventListener('click', redo);
 
 toggleGridInput.addEventListener('change', () => {
   showGrid = toggleGridInput.checked;
@@ -663,6 +349,4 @@ function bootFromHash() {
 
 createPalette();
 rebuildGrid();
-setActiveTool('pencil');
 bootFromHash();
-updateHistoryButtons();
