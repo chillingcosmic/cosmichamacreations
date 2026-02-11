@@ -98,6 +98,8 @@ h2 {
 
 p {
   margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.5;
 }
 
 .muted {
