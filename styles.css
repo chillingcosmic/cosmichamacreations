@@ -154,11 +154,12 @@ button:disabled {
   display: grid;
   gap: 0.7rem;
   align-content: start;
+  width: 210px;
 }
 
 .palette {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 0.5rem;
   max-height: none;
   overflow: visible;
@@ -252,6 +253,6 @@ button:disabled {
   }
 
   .palette {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   }
 }
