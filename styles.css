@@ -1,12 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Patrick+Hand&display=swap");
+
 :root {
-  --bg-wood: #b6855f;
-  --bg-wood-dark: #8d6345;
-  --paper: #f8f2e8;
-  --ink: #3e2e23;
-  --accent: #aa6b7d;
-  --accent-dark: #7e4554;
-  --line: #d6c0ab;
-  --shadow: rgba(43, 26, 17, 0.2);
+  --bg-main: #ede1df;
+  --bg-patch-a: #f3ebea;
+  --bg-patch-b: #e9e2e0;
+  --paper: #fff8f4;
+  --ink: #2f4c49;
+  --ink-soft: #45645f;
+  --accent: #d84d2f;
+  --accent-dark: #b13b24;
+  --teal: #4a8a88;
+  --mustard: #d89a2e;
+  --blue: #4f7ca5;
+  --pink: #d97a87;
+  --line: #d7c5be;
+  --shadow: rgba(67, 41, 37, 0.16);
 }
 
 * {
@@ -16,16 +24,13 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-family: "Gaegu", "Comic Sans MS", cursive;
   color: var(--ink);
   background:
-    repeating-linear-gradient(
-      90deg,
-      var(--bg-wood) 0,
-      var(--bg-wood) 70px,
-      var(--bg-wood-dark) 70px,
-      var(--bg-wood-dark) 76px
-    );
+    linear-gradient(90deg, transparent 49%, #ffffff3d 49%, #ffffff3d 51%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, #ffffff38 49%, #ffffff38 51%, transparent 51%),
+    linear-gradient(140deg, var(--bg-patch-a), var(--bg-patch-b));
+  background-size: 260px 260px, 260px 260px, auto;
   cursor: url("paw-cursor.svg") 12 6, auto;
 }
 
@@ -33,7 +38,7 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at top right, #ffffff20, transparent 35%);
+  background: radial-gradient(circle at top right, #ffffff5e, transparent 42%);
 }
 
 .app-shell {
@@ -47,27 +52,40 @@ body {
 .hero-card {
   background: var(--paper);
   border: 2px solid var(--line);
-  border-radius: 18px;
-  padding: 1rem 1.2rem;
-  box-shadow: 0 14px 30px var(--shadow);
+  border-radius: 22px 18px 20px 24px;
+  padding: 1.05rem 1.25rem;
+  box-shadow: 0 11px 22px var(--shadow), inset 0 0 0 1px #fff6f1;
 }
 
 .hero-card {
-  background: linear-gradient(140deg, #fbf6ee, #f2e8d8);
+  background:
+    radial-gradient(circle at 12% 14%, #f5ced454 0 12%, transparent 13%),
+    radial-gradient(circle at 86% 75%, #7ca9d633 0 15%, transparent 16%),
+    linear-gradient(140deg, #fff5ef, #f7eee8);
 }
 
 h1,
 h2 {
   margin-top: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Patrick Hand", "Gaegu", cursive;
+  line-height: 1.05;
+  letter-spacing: 0.4px;
 }
 
 h1 {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.35rem;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  color: var(--teal);
+  text-shadow:
+    2px 0 0 #ffffff70,
+    6px 0 0 #d84d2f22,
+    10px 0 0 #4f7ca522;
 }
 
 h2 {
   margin-bottom: 0.5rem;
+  color: var(--accent-dark);
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
 }
 
 p {
@@ -75,8 +93,8 @@ p {
 }
 
 .muted {
-  color: #755844;
-  font-size: 0.95rem;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
   line-height: 1.4;
 }
 
@@ -97,21 +115,23 @@ label {
 input,
 select,
 button {
-  border: 1px solid #b7967e;
-  border-radius: 10px;
+  border: 2px solid #caa89a;
+  border-radius: 14px 11px 15px 10px;
   padding: 0.5rem 0.6rem;
-  font-size: 0.95rem;
+  font-size: 1.02rem;
   background: #fffdf7;
   color: var(--ink);
+  font-family: "Gaegu", "Comic Sans MS", cursive;
 }
 
 button {
   cursor: pointer;
-  transition: transform 0.12s ease, background 0.12s ease;
+  transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 3px 0 #c09f8f;
 }
 
 button:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px) rotate(-0.3deg);
 }
 
 button:disabled {
@@ -121,9 +141,10 @@ button:disabled {
 }
 
 .btn-primary {
-  background: var(--accent);
+  background: linear-gradient(180deg, #e35b3b, #d84d2f);
   border-color: var(--accent-dark);
   color: #fff;
+  box-shadow: 0 3px 0 var(--accent-dark);
 }
 
 .actions-row {
@@ -141,7 +162,7 @@ button:disabled {
 .workspace {
   display: grid;
   grid-template-columns: 210px 1fr;
-  gap: 0.8rem;
+  gap: 1rem;
   align-items: start;
   margin-top: 1.1rem;
 }
@@ -155,15 +176,19 @@ button:disabled {
   gap: 0.7rem;
   align-content: start;
   width: 210px;
+  background: #fff7f2;
+  border: 2px dashed #d5bbb0;
+  border-radius: 18px;
+  padding: 0.65rem;
 }
 
 .palette {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 0.5rem;
+  gap: 0.55rem;
   max-height: none;
   overflow: visible;
-  padding: 0.5rem 0.55rem 0.65rem 0.55rem;
+  padding: 0.35rem 0.35rem 0.5rem;
   align-content: start;
 }
 
@@ -174,8 +199,8 @@ button:disabled {
   padding: 0;
   margin: 0;
   border-radius: 50%;
-  border: 2px solid #f8f2e8;
-  box-shadow: 0 0 0 1px #7a5e47;
+  border: 2px solid #fff6ef;
+  box-shadow: 0 0 0 1px #6a5347;
   position: relative;
   z-index: 1;
 }
@@ -185,7 +210,7 @@ button:disabled {
 }
 
 .palette-btn.active {
-  box-shadow: 0 0 0 1px #7a5e47, inset 0 0 0 3px #2f2015;
+  box-shadow: 0 0 0 1px #6a5347, inset 0 0 0 3px #2f2015;
 }
 
 .tool-grid {
@@ -194,7 +219,7 @@ button:disabled {
   gap: 0.55rem;
   margin-top: 0.95rem;
   padding-top: 0.95rem;
-  border-top: 1px solid #d4bc9f;
+  border-top: 2px dashed #d4bc9f;
 }
 
 .history-row {
@@ -213,9 +238,9 @@ button:disabled {
 }
 
 .paint-tool-btn.active {
-  background: #f2d5df;
-  border-color: #885365;
-  box-shadow: inset 0 0 0 2px #88536533;
+  background: #f6d9df;
+  border-color: #a76373;
+  box-shadow: inset 0 0 0 2px #a7637342, 0 3px 0 #b98f95;
 }
 
 .tool-icon {
@@ -233,15 +258,16 @@ button:disabled {
 }
 
 .canvas-wrap {
-  background: #eee1d0;
-  border-radius: 16px;
-  padding: 0.8rem;
+  background: #f4e6dc;
+  border-radius: 18px;
+  padding: 0.9rem;
+  border: 2px dashed #d0b6aa;
   overflow: auto;
 }
 
 #beadCanvas {
   max-width: 100%;
-  border: 2px solid #af8d72;
+  border: 2px solid #b7907a;
   border-radius: 12px;
   background: #fdfbf8;
   touch-action: none;
