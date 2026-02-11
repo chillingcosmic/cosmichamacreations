@@ -153,10 +153,11 @@ button:disabled {
 .palette {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.45rem;
+  gap: 0.5rem;
   max-height: 420px;
   overflow-y: auto;
-  padding: 0.3rem 0.45rem 0.4rem 0.1rem;
+  overflow-x: visible;
+  padding: 0.45rem 0.6rem 0.55rem 0.2rem;
   align-content: start;
 }
 
@@ -165,19 +166,27 @@ button:disabled {
   aspect-ratio: 1;
   display: block;
   padding: 0;
+  margin: 1px;
   border-radius: 50%;
   border: 2px solid #f8f2e8;
   box-shadow: 0 0 0 1px #7a5e47;
 }
 
+.palette-btn:hover {
+  transform: none;
+}
+
 .palette-btn.active {
-  box-shadow: 0 0 0 3px #2f2015;
+  box-shadow: 0 0 0 1px #7a5e47, 0 0 0 3px #2f2015;
 }
 
 .tool-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.45rem;
+  margin-top: 0.55rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #d4bc9f;
 }
 
 .history-row {
@@ -187,9 +196,11 @@ button:disabled {
 }
 
 .icon-btn {
-  min-height: 2.4rem;
+  min-height: 2.5rem;
   padding: 0.35rem 0.4rem;
-  font-size: 1.3rem;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
   line-height: 1;
 }
 
@@ -197,6 +208,16 @@ button:disabled {
   background: #f2d5df;
   border-color: #885365;
   box-shadow: inset 0 0 0 2px #88536533;
+}
+
+.tool-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .canvas-wrap {

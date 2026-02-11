@@ -77,16 +77,32 @@
           <aside class="tools-sidebar">
             <div class="palette" id="palette"></div>
             <div class="tool-grid" id="toolBar">
-              <button data-tool="pencil" class="paint-tool-btn active icon-btn" title="Matita" aria-label="Matita">&#9998;</button>
-              <button data-tool="eraser" class="paint-tool-btn icon-btn" title="Gomma" aria-label="Gomma">&#9003;</button>
-              <button data-tool="bucket" class="paint-tool-btn icon-btn" title="Secchiello" aria-label="Secchiello">&#129699;</button>
-              <button data-tool="line" class="paint-tool-btn icon-btn" title="Linea" aria-label="Linea">/</button>
-              <button data-tool="rect" class="paint-tool-btn icon-btn" title="Rettangolo" aria-label="Rettangolo">&#9645;</button>
-              <button data-tool="circle" class="paint-tool-btn icon-btn" title="Cerchio" aria-label="Cerchio">&#9711;</button>
+              <button data-tool="pencil" class="paint-tool-btn active icon-btn" title="Matita" aria-label="Matita">
+                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4.5-1 9-9-3.5-3.5-9 9L4 20z"/><path d="M13.8 6.2l3.5 3.5"/><path d="M3.5 20.5h5"/></svg>
+              </button>
+              <button data-tool="eraser" class="paint-tool-btn icon-btn" title="Gomma" aria-label="Gomma">
+                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14l7-7a2 2 0 0 1 2.8 0L21 15.2 16.2 20H9L3 14z"/><path d="M9 20h12"/></svg>
+              </button>
+              <button data-tool="bucket" class="paint-tool-btn icon-btn" title="Secchiello" aria-label="Secchiello">
+                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6l8 8-5.5 5.5a3 3 0 0 1-4.2 0L2.5 15.7a3 3 0 0 1 0-4.2L8 6z"/><path d="M15 4l5 5"/><path d="M17.5 18.5a2.5 2.5 0 1 0 5 0c0-1.4-1.6-3.4-2.5-4.4-.9 1-2.5 3-2.5 4.4z"/></svg>
+              </button>
+              <button data-tool="line" class="paint-tool-btn icon-btn" title="Linea" aria-label="Linea">
+                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19L19 4"/><circle cx="4" cy="19" r="2"/><circle cx="19" cy="4" r="2"/></svg>
+              </button>
+              <button data-tool="rect" class="paint-tool-btn icon-btn" title="Rettangolo" aria-label="Rettangolo">
+                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="1.5"/></svg>
+              </button>
+              <button data-tool="circle" class="paint-tool-btn icon-btn" title="Cerchio" aria-label="Cerchio">
+                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>
+              </button>
             </div>
             <div class="history-row">
-              <button id="undoBtn" class="icon-btn" title="Annulla" aria-label="Annulla">&#8630;</button>
-              <button id="redoBtn" class="icon-btn" title="Ripristina" aria-label="Ripristina">&#8631;</button>
+              <button id="undoBtn" class="icon-btn" title="Annulla" aria-label="Annulla">
+                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7L4 12l5 5"/><path d="M20 12H4"/><path d="M20 12a6 6 0 0 0-6-6"/></svg>
+              </button>
+              <button id="redoBtn" class="icon-btn" title="Ripristina" aria-label="Ripristina">
+                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 7l5 5-5 5"/><path d="M4 12h16"/><path d="M4 12a6 6 0 0 1 6-6"/></svg>
+              </button>
             </div>
           </aside>
           <div class="canvas-wrap">
