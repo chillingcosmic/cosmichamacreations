@@ -97,11 +97,11 @@ function resizeCanvas() {
 }
 
 function drawBasePegboard(size) {
-  ctx.fillStyle = '#e6dfd8';
+  ctx.fillStyle = '#cec0b3';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   const pegRadius = size * 0.14;
-  ctx.fillStyle = '#bfb7ae';
+  ctx.fillStyle = '#9f9082';
 
   for (let y = 0; y < gridH; y++) {
     for (let x = 0; x < gridW; x++) {
@@ -117,7 +117,7 @@ function drawBasePegboard(size) {
 function drawGridLines(size) {
   if (!showGrid) return;
 
-  ctx.strokeStyle = '#9f978f';
+  ctx.strokeStyle = '#7f7267';
   ctx.lineWidth = 1;
 
   for (let x = 0; x <= gridW; x++) {
@@ -139,6 +139,7 @@ function drawGridLines(size) {
 
 function drawBead(centerX, centerY, radius, color, opacity = 1) {
   const ringThickness = radius * 0.34;
+  const isWhiteBead = String(color).toLowerCase() === '#ffffff';
   ctx.save();
   ctx.globalAlpha = opacity;
 
@@ -157,7 +158,7 @@ function drawBead(centerX, centerY, radius, color, opacity = 1) {
   ctx.arc(centerX, centerY, radius * 0.9, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.strokeStyle = '#00000020';
+  ctx.strokeStyle = isWhiteBead ? '#5f5348b8' : '#00000020';
   ctx.lineWidth = Math.max(1, radius * 0.08);
   ctx.beginPath();
   ctx.arc(centerX, centerY, radius * 0.94, 0, Math.PI * 2);
