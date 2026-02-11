@@ -19,6 +19,9 @@
 
       <section class="panel controls-panel">
         <h2>Impostazioni progetto</h2>
+        <p class="muted">
+          Definisci il formato del tuo progetto Hama: dimensioni della base, scala perline e visualizzazione della griglia.
+        </p>
         <div class="form-grid">
           <label>
             Larghezza griglia
@@ -51,7 +54,7 @@
       <section class="panel converter-panel">
         <h2>Converti immagine in schema</h2>
         <p class="muted">
-          Carica un'immagine e riducila alla palette Hama per ottenere una bozza pronta da seguire.
+          Trasforma una foto in una bozza bead-by-bead ridotta alla palette Hama, utile come base di partenza da rifinire.
         </p>
         <div class="form-grid">
           <label>
@@ -70,7 +73,9 @@
       <section class="panel editor-panel">
         <div class="editor-header">
           <h2>Editor blueprint Hama</h2>
-          <p class="muted">Tool stile paint: matita, secchiello, forme, undo/redo e preview trasparente.</p>
+          <p class="muted">
+            Area di composizione del blueprint: qui costruisci il disegno finale perlina per perlina direttamente sulla plancia.
+          </p>
         </div>
 
         <div class="workspace">
@@ -78,30 +83,30 @@
             <div class="palette" id="palette"></div>
             <div class="tool-grid" id="toolBar">
               <button data-tool="pencil" class="paint-tool-btn active icon-btn" title="Matita" aria-label="Matita">
-                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4.5-1 9-9-3.5-3.5-9 9L4 20z"/><path d="M13.8 6.2l3.5 3.5"/><path d="M3.5 20.5h5"/></svg>
+                <svg class="tool-icon hand-drawn" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.8 19.6l4.7-1.1 8.8-8.7-3.2-3.4-9 8.9-1.3 4.3z"/><path d="M13.7 6.5l3.1 3.2"/><path d="M3.4 20.2h5.3"/></svg>
               </button>
               <button data-tool="eraser" class="paint-tool-btn icon-btn" title="Gomma" aria-label="Gomma">
-                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14l7-7a2 2 0 0 1 2.8 0L21 15.2 16.2 20H9L3 14z"/><path d="M9 20h12"/></svg>
+                <svg class="tool-icon hand-drawn" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.2 14.3l6.7-6.9c.8-.8 2-.9 2.9-.1l7.8 7.9-4.4 4.7H8.9l-5.7-5.6z"/><path d="M8.8 20h11.6"/></svg>
               </button>
               <button data-tool="bucket" class="paint-tool-btn icon-btn" title="Secchiello" aria-label="Secchiello">
-                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6l8 8-5.5 5.5a3 3 0 0 1-4.2 0L2.5 15.7a3 3 0 0 1 0-4.2L8 6z"/><path d="M15 4l5 5"/><path d="M17.5 18.5a2.5 2.5 0 1 0 5 0c0-1.4-1.6-3.4-2.5-4.4-.9 1-2.5 3-2.5 4.4z"/></svg>
+                <svg class="tool-icon hand-drawn" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 6.2l8.1 8.1-5.2 5.3c-1.1 1.1-2.9 1.1-4.1 0L2.6 15.7c-1.1-1.1-1.1-2.9 0-4.1l5.2-5.4z"/><path d="M14.9 4.3l4.7 4.8"/><path d="M17.7 18.7c0 1.3 1 2.3 2.3 2.3s2.3-1 2.3-2.3c0-1.1-1.5-3-2.3-3.9-.9.9-2.3 2.8-2.3 3.9z"/></svg>
               </button>
               <button data-tool="line" class="paint-tool-btn icon-btn" title="Linea" aria-label="Linea">
-                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19L19 4"/><circle cx="4" cy="19" r="2"/><circle cx="19" cy="4" r="2"/></svg>
+                <svg class="tool-icon hand-drawn" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.1 18.8L19.1 4.6"/><circle cx="4.1" cy="18.8" r="1.8"/><circle cx="19.1" cy="4.6" r="1.8"/></svg>
               </button>
               <button data-tool="rect" class="paint-tool-btn icon-btn" title="Rettangolo" aria-label="Rettangolo">
-                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="1.5"/></svg>
+                <svg class="tool-icon hand-drawn" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.6 6.7h14.8v10.6H4.6z"/></svg>
               </button>
               <button data-tool="circle" class="paint-tool-btn icon-btn" title="Cerchio" aria-label="Cerchio">
-                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/></svg>
+                <svg class="tool-icon hand-drawn" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.1 12.2c0 4-3.1 6.9-7.1 6.9-4.1 0-7.2-3-7.2-7s3.1-7 7.2-7c4 0 7.1 3 7.1 7.1z"/></svg>
               </button>
             </div>
             <div class="history-row">
               <button id="undoBtn" class="icon-btn" title="Annulla" aria-label="Annulla">
-                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7L4 12l5 5"/><path d="M20 12H4"/><path d="M20 12a6 6 0 0 0-6-6"/></svg>
+                <svg class="tool-icon hand-drawn" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.8 7.1L4 12l4.8 4.9"/><path d="M19.7 12H4"/><path d="M19.7 12c0-3.4-2.6-6-6-6"/></svg>
               </button>
               <button id="redoBtn" class="icon-btn" title="Ripristina" aria-label="Ripristina">
-                <svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 7l5 5-5 5"/><path d="M4 12h16"/><path d="M4 12a6 6 0 0 1 6-6"/></svg>
+                <svg class="tool-icon hand-drawn" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.2 7.1L20 12l-4.8 4.9"/><path d="M4.3 12H20"/><path d="M4.3 12c0-3.4 2.6-6 6-6"/></svg>
               </button>
             </div>
           </aside>
@@ -113,7 +118,7 @@
 
       <section class="panel share-panel">
         <h2>Condivisione blueprint</h2>
-        <p class="muted">Genera un link condivisibile contenente tutto il design.</p>
+        <p class="muted">Crea un link portabile del progetto per continuare o mostrare il blueprint su altri dispositivi.</p>
         <div class="actions-row">
           <button id="shareBtn" class="btn-primary">Genera link</button>
           <input id="shareLink" type="text" readonly placeholder="Il link apparira qui..." />
