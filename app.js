@@ -97,11 +97,11 @@ function resizeCanvas() {
 }
 
 function drawBasePegboard(size) {
-  ctx.fillStyle = '#cec0b3';
+  ctx.fillStyle = '#b8a493';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   const pegRadius = size * 0.14;
-  ctx.fillStyle = '#9f9082';
+  ctx.fillStyle = '#877767';
 
   for (let y = 0; y < gridH; y++) {
     for (let x = 0; x < gridW; x++) {
@@ -117,7 +117,7 @@ function drawBasePegboard(size) {
 function drawGridLines(size) {
   if (!showGrid) return;
 
-  ctx.strokeStyle = '#7f7267';
+  ctx.strokeStyle = '#635549';
   ctx.lineWidth = 1;
 
   for (let x = 0; x <= gridW; x++) {

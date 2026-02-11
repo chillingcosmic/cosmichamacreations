@@ -35,13 +35,29 @@ body {
   font-family: "Gaegu", "Comic Sans MS", cursive;
   color: var(--ink);
   background:
-    radial-gradient(circle at 18px 22px, #4a8a8840 0 11px, transparent 12px),
-    radial-gradient(circle at 88px 54px, #d84d2f36 0 9px, transparent 10px),
-    radial-gradient(circle at 150px 28px, #4f7ca53d 0 10px, transparent 11px),
-    radial-gradient(circle at 52px 132px, #d97a8744 0 12px, transparent 13px),
-    radial-gradient(circle at 136px 120px, #d89a2e3d 0 8px, transparent 9px),
+    radial-gradient(circle at 26px 30px, #4a8a8859 0 16px, transparent 17px),
+    radial-gradient(circle at 160px 54px, #d84d2f52 0 10px, transparent 11px),
+    radial-gradient(circle at 118px 146px, #4f7ca557 0 14px, transparent 15px),
+    radial-gradient(circle at 44px 168px, #d97a8760 0 8px, transparent 9px),
+    radial-gradient(circle at 200px 164px, #d89a2e57 0 18px, transparent 19px),
+    radial-gradient(circle at 98px 86px, #4a8a8847 0 6px, transparent 7px),
+    radial-gradient(circle at 12px 104px, #d84d2f48 0 12px, transparent 13px),
+    radial-gradient(circle at 186px 22px, #4f7ca54d 0 7px, transparent 8px),
+    radial-gradient(circle at 74px 210px, #d97a8750 0 15px, transparent 16px),
+    radial-gradient(circle at 232px 112px, #d89a2e4a 0 9px, transparent 10px),
     linear-gradient(140deg, var(--bg-patch-a), var(--bg-patch-b));
-  background-size: 180px 180px, 180px 180px, 180px 180px, 180px 180px, 180px 180px, auto;
+  background-size:
+    260px 240px,
+    260px 240px,
+    260px 240px,
+    260px 240px,
+    260px 240px,
+    260px 240px,
+    260px 240px,
+    260px 240px,
+    260px 240px,
+    260px 240px,
+    auto;
   cursor: url("paw-cursor.svg") 12 6, auto;
 }
 
