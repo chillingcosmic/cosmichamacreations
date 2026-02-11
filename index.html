@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cosmic Hama Creations</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="desk-overlay"></div>
+    <main class="app-shell">
+      <header class="hero-card">
+        <h1>Cosmic Hama Creations</h1>
+        <p>
+          Crea blueprint realistici con stile cottagecore: converti immagini in schemi Hama Beads,
+          dipingi a mano libera su griglia e condividi il risultato con un link.
+        </p>
+      </header>
+
+      <section class="panel controls-panel">
+        <h2>Impostazioni progetto</h2>
+        <div class="form-grid">
+          <label>
+            Larghezza griglia
+            <input id="gridWidth" type="number" min="8" max="128" value="32" />
+          </label>
+          <label>
+            Altezza griglia
+            <input id="gridHeight" type="number" min="8" max="128" value="32" />
+          </label>
+          <label>
+            Misura perlina (mm)
+            <select id="beadSize">
+              <option value="2.6">Mini (2.6 mm)</option>
+              <option value="5" selected>Midi (5 mm)</option>
+              <option value="10">Maxi (10 mm)</option>
+            </select>
+          </label>
+          <label>
+            Mostra griglia
+            <input id="toggleGrid" type="checkbox" checked />
+          </label>
+        </div>
+        <div class="actions-row">
+          <button id="applyGridBtn" class="btn-primary">Applica griglia</button>
+          <button id="clearBtn">Svuota progetto</button>
+          <button id="downloadBtn">Scarica PNG</button>
+        </div>
+      </section>
+
+      <section class="panel converter-panel">
+        <h2>Converti immagine in schema</h2>
+        <p class="muted">
+          Carica un'immagine e riducila alla palette Hama per ottenere una bozza pronta da seguire.
+        </p>
+        <div class="form-grid">
+          <label>
+            Carica immagine
+            <input id="imageInput" type="file" accept="image/*" />
+          </label>
+          <label>
+            Intensità riduzione colori
+            <input id="colorSteps" type="range" min="4" max="24" value="12" />
+            <span id="colorStepsValue">12</span>
+          </label>
+        </div>
+        <button id="convertBtn" class="btn-primary">Converti in Hama blueprint</button>
+      </section>
+
+      <section class="panel editor-panel">
+        <div class="editor-header">
+          <h2>Editor blueprint Hama</h2>
+          <p class="muted">Clicca o trascina per posizionare le perline.</p>
+        </div>
+        <div class="workspace">
+          <aside class="palette" id="palette"></aside>
+          <div class="canvas-wrap">
+            <canvas id="beadCanvas" width="640" height="640" aria-label="Canvas bead editor"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel share-panel">
+        <h2>Condivisione blueprint</h2>
+        <p class="muted">Genera un link condivisibile contenente tutto il design.</p>
+        <div class="actions-row">
+          <button id="shareBtn" class="btn-primary">Genera link</button>
+          <input id="shareLink" type="text" readonly placeholder="Il link apparirà qui..." />
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
