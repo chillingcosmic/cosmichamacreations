@@ -158,14 +158,12 @@ button:disabled {
 
 .palette {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
-  max-height: 420px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  max-height: none;
+  overflow: visible;
   padding: 0.5rem 0.55rem 0.65rem 0.55rem;
   align-content: start;
-  scrollbar-gutter: stable;
 }
 
 .palette-btn {
@@ -254,7 +252,6 @@ button:disabled {
   }
 
   .palette {
-    grid-template-columns: repeat(8, 1fr);
-    max-height: none;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
