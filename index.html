@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="it">
   <head>
     <meta charset="UTF-8" />
@@ -59,7 +59,7 @@
             <input id="imageInput" type="file" accept="image/*" />
           </label>
           <label>
-            Intensità riduzione colori
+            Intensita riduzione colori
             <input id="colorSteps" type="range" min="4" max="24" value="12" />
             <span id="colorStepsValue">12</span>
           </label>
@@ -73,19 +73,22 @@
           <p class="muted">Tool stile paint: matita, secchiello, forme, undo/redo e preview trasparente.</p>
         </div>
 
-        <div class="toolbar" id="toolBar">
-          <button data-tool="pencil" class="tool-btn active">Matita</button>
-          <button data-tool="eraser" class="tool-btn">Gomma</button>
-          <button data-tool="bucket" class="tool-btn">Secchiello</button>
-          <button data-tool="line" class="tool-btn">Linea</button>
-          <button data-tool="rect" class="tool-btn">Rettangolo</button>
-          <button data-tool="circle" class="tool-btn">Cerchio</button>
-          <button id="undoBtn">↶ Annulla</button>
-          <button id="redoBtn">↷ Ripristina</button>
-        </div>
-
         <div class="workspace">
-          <aside class="palette" id="palette"></aside>
+          <aside class="tools-sidebar">
+            <div class="palette" id="palette"></div>
+            <div class="tool-grid" id="toolBar">
+              <button data-tool="pencil" class="paint-tool-btn active icon-btn" title="Matita" aria-label="Matita">&#9998;</button>
+              <button data-tool="eraser" class="paint-tool-btn icon-btn" title="Gomma" aria-label="Gomma">&#9003;</button>
+              <button data-tool="bucket" class="paint-tool-btn icon-btn" title="Secchiello" aria-label="Secchiello">&#129699;</button>
+              <button data-tool="line" class="paint-tool-btn icon-btn" title="Linea" aria-label="Linea">/</button>
+              <button data-tool="rect" class="paint-tool-btn icon-btn" title="Rettangolo" aria-label="Rettangolo">&#9645;</button>
+              <button data-tool="circle" class="paint-tool-btn icon-btn" title="Cerchio" aria-label="Cerchio">&#9711;</button>
+            </div>
+            <div class="history-row">
+              <button id="undoBtn" class="icon-btn" title="Annulla" aria-label="Annulla">&#8630;</button>
+              <button id="redoBtn" class="icon-btn" title="Ripristina" aria-label="Ripristina">&#8631;</button>
+            </div>
+          </aside>
           <div class="canvas-wrap">
             <canvas id="beadCanvas" width="640" height="640" aria-label="Canvas bead editor"></canvas>
           </div>
@@ -97,7 +100,7 @@
         <p class="muted">Genera un link condivisibile contenente tutto il design.</p>
         <div class="actions-row">
           <button id="shareBtn" class="btn-primary">Genera link</button>
-          <input id="shareLink" type="text" readonly placeholder="Il link apparirà qui..." />
+          <input id="shareLink" type="text" readonly placeholder="Il link apparira qui..." />
         </div>
       </section>
     </main>

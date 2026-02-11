@@ -11,7 +11,7 @@ const colorStepsValue = document.getElementById('colorStepsValue');
 const shareLink = document.getElementById('shareLink');
 const undoBtn = document.getElementById('undoBtn');
 const redoBtn = document.getElementById('redoBtn');
-const toolButtons = document.querySelectorAll('.tool-btn');
+const toolButtons = document.querySelectorAll('.paint-tool-btn');
 
 const paletteContainer = document.getElementById('palette');
 
@@ -246,8 +246,10 @@ function isValidCell(x, y) {
 
 function setCell(x, y, color) {
   if (!isValidCell(x, y)) return false;
-  if (beads[y][x] === color) return false;
-  beads[y][x] = color;
+  const nextColor = color ?? null;
+  if (beads[y][x] === nextColor) return false;
+  // Every cell contains at most one bead; repainting replaces the old color.
+  beads[y][x] = nextColor;
   return true;
 }
 

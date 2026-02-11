@@ -137,24 +137,17 @@ button:disabled {
   min-width: 260px;
 }
 
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 0.8rem;
-}
-
-.tool-btn.active {
-  background: #f2d5df;
-  border-color: #885365;
-  box-shadow: inset 0 0 0 2px #88536533;
-}
-
 .workspace {
   display: grid;
   grid-template-columns: 210px 1fr;
   gap: 0.8rem;
   align-items: start;
+}
+
+.tools-sidebar {
+  display: grid;
+  gap: 0.7rem;
+  align-content: start;
 }
 
 .palette {
@@ -163,12 +156,15 @@ button:disabled {
   gap: 0.45rem;
   max-height: 420px;
   overflow-y: auto;
-  padding-right: 0.4rem;
+  padding: 0.3rem 0.45rem 0.4rem 0.1rem;
+  align-content: start;
 }
 
 .palette-btn {
   width: 100%;
   aspect-ratio: 1;
+  display: block;
+  padding: 0;
   border-radius: 50%;
   border: 2px solid #f8f2e8;
   box-shadow: 0 0 0 1px #7a5e47;
@@ -176,6 +172,31 @@ button:disabled {
 
 .palette-btn.active {
   box-shadow: 0 0 0 3px #2f2015;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+}
+
+.history-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+}
+
+.icon-btn {
+  min-height: 2.4rem;
+  padding: 0.35rem 0.4rem;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.paint-tool-btn.active {
+  background: #f2d5df;
+  border-color: #885365;
+  box-shadow: inset 0 0 0 2px #88536533;
 }
 
 .canvas-wrap {
