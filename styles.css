@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "DreamBaser";
+  src: url("dream-baser.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Patrick+Hand&display=swap");
 
 :root {
@@ -67,7 +75,7 @@ body {
 h1,
 h2 {
   margin-top: 0;
-  font-family: "Patrick Hand", "Gaegu", cursive;
+  font-family: "DreamBaser", "Patrick Hand", "Gaegu", cursive;
   line-height: 1.05;
   letter-spacing: 0.4px;
 }
