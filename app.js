@@ -138,7 +138,7 @@ function drawGridLines(size) {
 }
 
 function drawBead(centerX, centerY, radius, color, opacity = 1) {
-  const ringThickness = radius * 0.34;
+  const innerHoleRadius = radius * 0.32;
   const isWhiteBead = String(color).toLowerCase() === '#ffffff';
   ctx.save();
   ctx.globalAlpha = opacity;
@@ -171,7 +171,7 @@ function drawBead(centerX, centerY, radius, color, opacity = 1) {
 
   ctx.fillStyle = '#f7f7f2';
   ctx.beginPath();
-  ctx.arc(centerX, centerY, Math.max(radius - ringThickness, radius * 0.38), 0, Math.PI * 2);
+  ctx.arc(centerX, centerY, innerHoleRadius, 0, Math.PI * 2);
   ctx.fill();
 
   ctx.fillStyle = '#d5d5ce';
