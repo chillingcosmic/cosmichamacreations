@@ -100,3 +100,31 @@ git push -u origin work
 - Vai su **Settings → Pages** e apri l'URL pubblico.
 
 Se qualcosa non funziona, copia l'errore esatto del terminale e riparti da qui: nella pratica il problema è quasi sempre solo l'URL del remote o il branch di destinazione.
+
+## Se la PR dice "This branch has conflicts"
+
+Se vedi il box con **Resolve conflicts**, fai così direttamente dal sito GitHub:
+
+1. Clicca **Resolve conflicts**.
+2. Per ogni file (`README.md`, `app.js`, `index.html`, `styles.css`) vedrai blocchi tipo:
+
+   ```
+   <<<<<<< HEAD
+   ...codice main...
+   =======
+   ...codice branch...
+   >>>>>>> nome-branch
+   ```
+
+3. Tieni la versione del tuo branch (in genere la parte **sotto `=======`**) per mantenere le tue modifiche recenti.
+4. Cancella completamente i marker `<<<<<<<`, `=======`, `>>>>>>>`.
+5. Ripeti per tutti i conflitti finché non restano marker.
+6. Clicca **Mark as resolved** per ciascun file.
+7. Clicca **Commit merge**.
+8. Torna alla PR e clicca **Merge pull request** → **Confirm merge**.
+
+### Regola pratica per non sbagliare
+
+- Se il file in `main` è vecchio e nel branch hai le funzioni nuove (tool editor, undo/redo, preview), **tieni il branch**.
+- Se nel dubbio, prima salva una copia del testo in locale (note) e poi completa il merge.
+
