@@ -31,6 +31,45 @@ L'`index.html` è nella root del progetto, quindi GitHub Pages può servirlo dir
 URL finale (tipico):
 - `https://<tuo-utente>.github.io/<nome-repo>/`
 
+## Procedura rapida "zero conflitti" (consigliata)
+
+Se vuoi evitare del tutto la risoluzione manuale dei conflitti, fai così:
+
+1. Parti da `main` aggiornato.
+2. Crea un nuovo branch pulito da `main`.
+3. Copia dentro quel branch i file del branch con le modifiche.
+4. Apri una nuova PR.
+
+Copia/incolla questi comandi nel terminale (dentro la cartella progetto):
+
+```bash
+git fetch origin
+
+# aggiorna main locale
+git checkout main
+git pull origin main
+
+# nuovo branch pulito
+git checkout -b publish-clean
+
+# copia i file dal branch vecchio (quello con le modifiche)
+git checkout codex/develop-hama-beads-design-web-app -- .
+
+# commit e push
+git add .
+git commit -m "Recreate changes on top of latest main to avoid conflicts"
+git push -u origin publish-clean
+```
+
+Poi su GitHub:
+
+1. Apri il repo.
+2. Clicca **Compare & pull request** sul branch `publish-clean`.
+3. Verifica: **base = `main`**.
+4. Clicca **Merge pull request** → **Confirm merge**.
+
+Con questo metodo, nella pratica eviti quasi sempre i conflitti della PR precedente perché riparti dall'ultimo `main`.
+
 ## Pubblicare senza terminale (solo dal sito GitHub)
 
 Se sei già sul sito GitHub, questa è la strada più semplice (zero comandi).
