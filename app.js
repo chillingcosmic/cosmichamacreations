@@ -169,12 +169,12 @@ function drawBead(centerX, centerY, radius, color, opacity = 1) {
   ctx.arc(centerX - radius * 0.25, centerY - radius * 0.25, radius * 0.22, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.fillStyle = '#f7f7f2';
+  ctx.fillStyle = '#b7a89a';
   ctx.beginPath();
   ctx.arc(centerX, centerY, innerHoleRadius, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.fillStyle = '#d5d5ce';
+  ctx.fillStyle = '#867869';
   ctx.beginPath();
   ctx.arc(centerX, centerY, radius * 0.2, 0, Math.PI * 2);
   ctx.fill();
